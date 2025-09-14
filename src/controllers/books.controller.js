@@ -47,6 +47,28 @@ export const getBooks = (req, res)=>{
     }
 }
 
+export const getBookById = (req, res)=>{
+    try {
+        const {id} = req.params;
+        const sql = `
+            SELECT books.*, authors.name as author_name, authors.email as author_email FROM books
+            LEFT JOIN authors ON books.author_id = authors.id
+            WHERE books.id = ?
+        `;
+        db.get(sql, [id], (err, row) => {
+            if (err) {
+                res.status(500).json({ error: err.message });
+            } else if (!row) {
+                res.status(404).json({ error: "Book not found" });
+            } else {
+                res.status(200).json({ book: row });
+            }
+        });
+    } catch (error) {
+        res.status(500).json({error: "Internal Server Error"});
+    }
+}
+
 export const createBook = (req, res)=>{
     try {
         const {title, isbn, published_year, author_id} = req.body;
