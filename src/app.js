@@ -1,11 +1,13 @@
 import express from 'express';
 import authorsRoutes from './routes/authors.route.js';
 import booksRoutes from './routes/books.route.js';
+import { rateLimiter } from './middleware/rateLimiter.js';
 
 const app = express();
 
-// Middleware to parse JSON requests
-app.use(express.json());
+// Middlewares
+app.use(express.json()); // to parse JSON request bodies
+app.use(rateLimiter); // Apply rate limiting to all requests
 
 // Routes
 app.use('/authors', authorsRoutes);
