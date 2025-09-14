@@ -4,9 +4,9 @@ import {validateBook} from '../validators/books.validator.js'
 
 const router=express.Router();
 
-router.get('/', validateBook, getBooks);
+router.get('/', getBooks);
 router.get('/:id', getBookById);
-router.post('/', createBook);
-router.put('/:id', updateBook);
+router.post('/',validateBook, createBook);
+router.put('/:id',validateBook, updateBook);
 
 export default router;
