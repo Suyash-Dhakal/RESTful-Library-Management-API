@@ -34,7 +34,7 @@ export const getAuthors = (req, res) => {
 
 export const createAuthor = (req, res) => {
     try {
-        db.run('INSERT INTO authors (name, bio) VALUES (?, ?)', [req.body.name, req.body.bio], (err)=>{
+        db.run('INSERT INTO authors (name, email) VALUES (?, ?)', [req.body.name, req.body.email], (err)=>{
             if(err){
                 res.status(500).json({error: err.message});
             }else{
