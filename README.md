@@ -64,6 +64,7 @@ yipl-backend-2025/
   _Query params_: `title`, `author`, `year`, `sort`, `order`, `page`, `limit`
 - **POST** `/books` – Create a new book
 - **PUT** `/books/:id` – Update a book
+- **GET** `/books/:id` – Get a single book with author details
 
 ## Dependencies
 - **express** – Web framework for Node.js  
