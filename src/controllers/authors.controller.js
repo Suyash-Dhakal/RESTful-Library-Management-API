@@ -2,7 +2,8 @@ import {db} from '../../db/db.js';
 
 export const getAuthors = (req, res) => {
     try {
-        const { name, order } = req.query;
+        const { name, order, page = 1, limit = 10} = req.query;
+        const offset = (page - 1) * limit;
 
         let sql = `
             SELECT authors.*, COUNT(books.id) as book_count
@@ -19,6 +20,9 @@ export const getAuthors = (req, res) => {
 
         sql += ' GROUP BY authors.id ORDER BY book_count ' + (order?.toUpperCase() === 'ASC' ? 'ASC' : 'DESC');
 
+        // Pagination
+        sql += ' LIMIT ? OFFSET ?';
+        params.push(parseInt(limit), parseInt(offset));
 
         db.all(sql, params, (err, rows) => {
             if (err) {

@@ -2,7 +2,8 @@ import {db} from '../../db/db.js';
 
 export const getBooks = (req, res)=>{
     try {
-        const { title, author, year, sort, order } = req.query;
+        const { title, author, year, sort, order, page = 1, limit = 10 } = req.query;
+        const offset = (page - 1) * limit;
 
         let sql = `
             SELECT books.*, authors.name as author_name FROM books
@@ -34,6 +35,10 @@ export const getBooks = (req, res)=>{
         const sortField = validSort.includes(sort) ? sort : "created_at";
 
         sql += ` ORDER BY ${sortField} ${order?.toUpperCase() === 'ASC' ? 'ASC' : 'DESC'}`;
+
+        // Pagination
+        sql += ' LIMIT ? OFFSET ?';
+        params.push(parseInt(limit), parseInt(offset));
 
         db.all(sql, params, (err, rows) => {
             if (err) {
