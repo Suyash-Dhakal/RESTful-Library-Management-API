@@ -1,6 +1,6 @@
 import { redisClient } from "../utils/redisClient.js";
 
-const RATE_LIMIT = 10; // max requests
+const RATE_LIMIT = 15; // max requests
 const WINDOW_SIZE_IN_SECONDS = 60; // per minute
 
 export const rateLimiter = async (req, res, next)=>{
