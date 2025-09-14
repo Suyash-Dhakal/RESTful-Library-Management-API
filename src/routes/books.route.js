@@ -1,6 +1,6 @@
 import express from 'express';
 import {getBooks, createBook, updateBook, getBookById} from '../controllers/books.controller.js';
-import {validateBook} from '../validators/books.validator.js'
+import {validateBook} from '../validators/books.validator.js'; 
 
 const router=express.Router();
 
