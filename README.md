@@ -2,7 +2,7 @@
 
 ## Project Overview
 A RESTful API for managing authors and books using **Node.js**, **Express**, and **SQLite**.  
-Features include **Create, Read, and Update operations**, filtering, sorting, pagination, and input validation.
+Features include **Create, Read, and Update operations**, filtering, sorting, pagination, input validation and global rate limiting to protect the API.
 
 ## Project Structure
 ```bash
@@ -12,7 +12,10 @@ yipl-backend-2025/
 │   ├── controllers/       # Authors & Books controllers
 │   ├── routes/            # Express route files
 │   ├── validators/        # Authors & Books validation
+│   ├── utils/             # Reusable utility (Redis client)
+│   ├── middleware/        # Custom middleware (rate limiting)
 │   └── app.js
+│
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
@@ -37,11 +40,16 @@ yipl-backend-2025/
    node db/initDb.js
    ```
 
+4. **Start Redis server**
+     ```bash
+     redis-server
+     ```
 4. **Run the project**
    Start server:
      ```bash
      npm start
      ```
+
 
 ## API Endpoints
 
@@ -60,16 +68,19 @@ yipl-backend-2025/
 ## Dependencies
 - **express** – Web framework for Node.js  
 - **nodemon** – Auto-restart server on file changes (development only)  
-- **sqlite3** – Database engine for storing authors and books  
+- **sqlite3** – Database engine for storing authors and books 
+- **redis** – In-memory data store for rate limiting 
 
 ## Notes
 - Input validations are implemented for authors and books.  
 - Pagination, filtering, and sorting are supported on list endpoints.  
 - Error handling includes:
-  - **400** – Bad Request 
-  - **404** – Resource not found  
-  - **500** – Internal server error  
   - **201** – Resource created successfully
+  - **400** – Bad Request 
+  - **404** – Resource not found 
+  - **429** – Too Many Requests   
+  - **500** – Internal server error  
+
 
 ### Examples
 
