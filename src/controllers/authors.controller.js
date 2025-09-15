@@ -51,7 +51,8 @@ export const getAuthorById = (req, res)=>{
             } else if (!rows.length) {
                 res.status(404).json({ error: "Author not found" });
             } else {
-                res.status(200).json({ author: rows[0], books: rows.filter(r => r.book_id).map(r => ({
+                const {id, name, email, created_at} = rows[0];
+                res.status(200).json({ author: { id, name, email, created_at }, books: rows.filter(r => r.book_id).map(r => ({
                     id: r.book_id,
                     title: r.book_title,
                     published_year: r.book_published_year,
