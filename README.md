@@ -83,20 +83,115 @@ yipl-backend-2025/
   - **500** – Internal server error  
 
 
-### Examples
+# API Documentation
 
-#### Authors (GET /authors)
-Request: /authors?name=Laxmi&order=asc&page=1&limit=10
-- **name=Laxmi** → filter authors containing “Laxmi”  
-- **order=asc** → sort by book count ascending  
-- **page=1** → first page  
-- **limit=10** → 10 authors per page  
+### Query Parameters Reference
 
-#### Books (GET /books)
-Request: /books?title=Summer&author=Subin&year=2012&sort=title&order=asc&page=1&limit=5
-- **title=Summer** → partial match on book title  
-- **author=Subin** → partial match on author name  
-- **year=2012** → exact published year  
-- **sort=title** → sort by title  
-- **order=asc** → ascending order  
-- **page=1**, **limit=5** → pagination
+#### Authors (`GET /authors`)
+- **name** → filter authors by partial match   
+- **order** → `asc` or `desc` (default: `desc`, based on book count)
+- **page**, **limit** → pagination
+
+#### Books (`GET /books`)
+- **title** → filter books by partial match on book title
+- **author** → filter books by partial match on author name  
+- **year** → filter books by exact published year  
+- **sort** → field to sort by (`title`, `published_year`, default: `created_at`)  
+- **order** → `asc` or `desc` (default: `desc`)  
+- **page**, **limit** → pagination
+
+### Authors
+- `GET /authors` → List all authors (supports query params: `name`, `order`, `page`, `limit`)<br><br>
+**Example Request:**
+`/authors?name=Laxmi&order=asc&page=1&limit=10`
+  ```json
+  {
+  "authors": [
+    {
+      "id": 2,
+      "name": "Laxmi Prasad Devkota",
+      "email": "laxmi.devkota@example.com",
+      "created_at": "2025-09-15 12:11:28",
+      "book_count": 1
+    }
+  ]
+  }
+
+- `GET /authors/:id` → Get Author By Id  
+  ```json
+  {
+    "author": {
+        "id": 10,
+        "name": "Sarubhakta",
+        "email": "sarubhakta@example.com",
+        "created_at": "2025-09-15 12:11:28"
+    },
+    "books": [
+        {
+            "id": 10,
+            "title": "Pagal Basti",
+            "published_year": 1991,
+            "isbn": "9789937105"
+        }
+    ]
+  }
+
+- `POST /authors` → Create a new author  
+  ```json
+  {
+    "name": "J.K. Rowling",
+    "email": "jk@example.com"
+  }
+
+### Books
+- `GET /books` → List all books (supports query params: `title`, `author`, `year`, `sort`, `order`, `page`, `limit`)<br><br>
+**Example Request:**
+`/books?title=summer&author=subin&year=2012&sort=title&page=1&limit=10`
+
+  ```json
+  {
+  "books": [
+    {
+      "id": 4,
+      "title": "Summer Love",
+      "isbn": "9789937011",
+      "published_year": 2012,
+      "author_id": 4,
+      "created_at": "2025-09-15 12:11:28",
+      "author_name": "Subin Bhattarai"
+    }
+  ]
+  }
+
+- `GET /books/:id` → Get Book By Id  
+  ```json
+  {
+    "book": {
+        "id": 12,
+        "title": "Jhola",
+        "isbn": "9789937206",
+        "published_year": 2010,
+        "author_id": 11,
+        "created_at": "2025-09-15 12:11:28",
+        "author_name": "Krishna Dharabasi",
+        "author_email": "krishna.dharabasi@example.com"
+    }
+  }
+
+- `POST /books` → Create a new book  
+  ```json
+  {
+  "title": "Antyahin Yatraa",
+  "isbn": "7438526543",
+  "published_year": 2019,
+  "author_id": 12
+  }
+
+- `PUT /books/:id` → Update book info  
+  ```json
+  {
+  "title": "Antyahin Yatra",
+  "isbn": "7438526543",
+  "published_year": 2019,
+  "author_id": 12
+  }
