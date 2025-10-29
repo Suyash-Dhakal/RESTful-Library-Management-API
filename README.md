@@ -6,7 +6,7 @@ Features include **Create, Read, and Update operations**, filtering, sorting, pa
 
 ## Project Structure
 ```bash
-yipl-backend-2025/
+RESTful-Library-Management-API/
 ├── db/                    # Database setup and helpers          
 ├── src/
 │   ├── controllers/       # Authors & Books controllers
@@ -26,8 +26,8 @@ yipl-backend-2025/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Suyash-Dhakal/yipl-backend-2025.git
-   cd yipl-backend-2025
+   git clone https://github.com/Suyash-Dhakal/RESTful-Library-Management-API.git
+   cd RESTful-Library-Management-API
    ```
 
 2. **Install dependencies**
@@ -71,17 +71,6 @@ yipl-backend-2025/
 - **nodemon** – Auto-restart server on file changes (development only)  
 - **sqlite3** – Database engine for storing authors and books 
 - **redis** – In-memory data store for rate limiting 
-
-## Notes
-- Input validations are implemented for authors and books.  
-- Pagination, filtering, and sorting are supported on list endpoints.  
-- Error handling includes:
-  - **201** – Resource created successfully
-  - **400** – Bad Request 
-  - **404** – Resource not found 
-  - **429** – Too Many Requests   
-  - **500** – Internal server error  
-
 
 # API Documentation
 
@@ -195,3 +184,13 @@ yipl-backend-2025/
   "published_year": 2019,
   "author_id": 12
   }
+
+  ## Notes
+- Input validations are implemented for authors and books.  
+- Pagination, filtering, and sorting are supported on list endpoints.  
+- Error handling includes:
+  - **201** – Resource created successfully
+  - **400** – Bad Request 
+  - **404** – Resource not found 
+  - **429** – Too Many Requests   
+  - **500** – Internal server error  
