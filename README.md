@@ -184,8 +184,8 @@ RESTful-Library-Management-API/
   "published_year": 2019,
   "author_id": 12
   }
-
-  ## Notes
+```  
+## Notes
 - Input validations are implemented for authors and books.  
 - Pagination, filtering, and sorting are supported on list endpoints.  
 - Error handling includes:
@@ -193,4 +193,4 @@ RESTful-Library-Management-API/
   - **400** – Bad Request 
   - **404** – Resource not found 
   - **429** – Too Many Requests   
-  - **500** – Internal server error  
+  - **500** – Internal server error
